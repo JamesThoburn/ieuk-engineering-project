@@ -1,0 +1,17 @@
+# Version Control
+.git
+.gitignore
+
+# Virtual Environment
+venv/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Don't include data, this will be fed into the script during runtime in the cloud environment
+data/
+
+# Documentation
+docs/
+README.md
