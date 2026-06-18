@@ -20,6 +20,10 @@ Then you can run the code in two ways:
 1. Running locally (without Docker)
 2. Running via Docker
 
+### Prerequisites
+
+To run locally, you just need pip and Python (I used 3.14.3) installed on your computer. To run with Docker, you also need Docker Desktop installed.
+
 ### Running locally (without Docker)
 
 Ensure you are in ieuk-engineering-project folder before you run the following terminal commands:
