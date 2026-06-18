@@ -11,7 +11,11 @@
 
 ## Running the Code
 
-To get the repository, run `git clone https://github.com/JamesThoburn/ieuk-engineering-project.git` in the terminal. Then you can run the code in two ways:
+To get the repository, run `git clone https://github.com/JamesThoburn/ieuk-engineering-project.git` in the terminal. 
+
+Alternatively, you can download this repository as a zip by scrolling to the top of this page, clicking on the green "Code" dropdown, clicking "Download ZIP", then extracting the ZIP file in your folder of choice.
+
+Then you can run the code in two ways:
 
 1. Running locally (without Docker)
 2. Running via Docker
