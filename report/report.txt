@@ -1,0 +1,26 @@
+To: AeroGrid CTO
+From: James Thoburn, Data Engineer
+Re: Turbine Telemetry: Findings, Architecture and Cost Optimisation Recommendations
+
+Analysis of the most recent 24-hour telemetry data sample identified two turbines requiring
+urgent maintenance. Turbine T-04 is failing on temperature, averaging 90.48°C which exceeds the
+85.0°C threshold. Turbine T-07 is failing on vibration, peaking at 25.0 mm/s against a 15.0 mm/s
+threshold. These are distinct failure modes, confirming that both anomaly rules are independently
+necessary.
+
+The legacy single-server setup fails because one machine handles ingestion, processing and storage
+simultaneously, with no protection against load spikes. Instead, I'm proposing a serverless
+AWS pipeline: AWS IoT Core for device ingestion, Amazon Kinesis Data Streams as a buffer holding
+data spikes safely and AWS Lambda running the anomaly rules in real time as data arrives. Lambda
+writes to two destinations: Amazon Timestream for recent ("hot") data powering live dashboards,
+and Amazon S3 as a cheap, durable data lake for historical ("cold") analysis. Critically,
+Lambda also publishes anomaly alerts via Amazon SNS, notifying engineers immediately rather than
+relying on someone manually spotting failures buried in logs. This directly addresses the problem,
+helping us spot the failing machines with a scalable cloud-based solution. Each component scales
+and fails independently, eliminating the single point of failure entirely rather than just
+distributing it across more servers.
+
+In terms of cost optimisation, I recommend an S3 Lifecycle policy that automatically transitions
+telemetry data older than 90 days from S3 Standard to S3 Glacier. Since data value drops sharply
+once it's no longer needed for active analysis, this requires no engineering effort while ensuring
+that storage costs scale sustainably as both the turbine fleet and the data volume grow.
